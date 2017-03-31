@@ -1,0 +1,9 @@
+.idea/
+build/
+out/
+*.iml
+gradle/
+.settings/
+/src/main/resources/c3p0.properties
+/src/main/resources/rebel.xml
+.gradle
