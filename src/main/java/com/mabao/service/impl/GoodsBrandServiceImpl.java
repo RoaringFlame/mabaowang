@@ -5,10 +5,12 @@ import com.mabao.dao.repositories.GoodsBrandRepository;
 import com.mabao.service.GoodsBrandService;
 import com.mabao.util.Selector;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class GoodsBrandServiceImpl implements GoodsBrandService {
     @Autowired
     private GoodsBrandRepository goodsBrandRepository;

@@ -1,7 +1,6 @@
 package com.mabao.dao.repositories;
 
 import com.mabao.dao.domain.Area;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,7 +10,7 @@ public interface AreaRepository extends BaseRepository<Area>  {
     /**
      * 获取省
      */
-    @Cacheable("MaBaoCache")
+    //@Cacheable("MaBaoCache")
     List<Area> findByLevelType(Integer levelType);
 
     /**
@@ -20,6 +19,6 @@ public interface AreaRepository extends BaseRepository<Area>  {
      * @param parentsId                    父级ID
      * @return
      */
-    @Cacheable("MaBaoCache")
+    //@Cacheable("MaBaoCache")
     List<Area> findByLevelTypeAndParentsAreaId(int i, Long parentsId);
 }
