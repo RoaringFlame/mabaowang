@@ -4,10 +4,6 @@ import com.mabao.util.Selector;
 
 import java.util.List;
 
-/**
- * 首页初始化VO
- * Created by jackie on 2016/07/09.
- */
 public class HomeInitVO {
     private List<Selector> goodsTypeList;               //商品类别
     private List<Selector> gender;                      //猜你喜欢，宝宝性别

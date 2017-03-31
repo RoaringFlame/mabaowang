@@ -10,10 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 品牌
- * Created by jackie on 2016/07/09.
- */
 @Service
 public class BrandServiceImpl implements BrandService{
     @Autowired

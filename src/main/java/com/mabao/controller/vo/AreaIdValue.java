@@ -1,9 +1,5 @@
 package com.mabao.controller.vo;
 
-/**
- * 一个区级ID对应的省市区的id
- * Created by jackie on 2016/07/19.
- */
 public class AreaIdValue {
     private Long provinceId;                     //省级areaID
     private Long cityId;                         //市级areaID

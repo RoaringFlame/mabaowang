@@ -4,10 +4,6 @@ import com.mabao.dao.domain.GoodsBrand;
 import com.mabao.util.Selector;
 import java.util.List;
 
-/**
- * 品牌
- * Created by jackie on 2016/07/09.
- */
 public interface GoodsBrandService {
     /**
      * 获取启用的品牌

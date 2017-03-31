@@ -8,10 +8,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 宝宝信息
- * Created by jackie on 2016/07/09.
- */
 public class BabyVO {
     private Long id;                            //编号
     private Long userId;                        //用户ID

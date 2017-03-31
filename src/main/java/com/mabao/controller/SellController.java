@@ -29,10 +29,6 @@ import java.util.Map;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-/**
- * 寄售模块
- * @author jackie
- */
 @Controller
 @RequestMapping("/sell")
 public class SellController {

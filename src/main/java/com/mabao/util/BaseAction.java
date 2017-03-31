@@ -7,17 +7,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- *
- * <p class="detail">
- * 功能：公共Action
- * </p>
- *
- * @ClassName: BaseAction
- * @version V1.0
- * @date 2014年9月25日
- * @author wangsheng
- */
 public class BaseAction {
     private String allowSuffix = "jpg,png,gif,jpeg";//允许文件格式
     private long allowSize = 10L;//允许文件大小

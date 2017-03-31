@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Date;
 
-
 @Service
 public class UserServiceImpl extends BaseAction implements UserService {
     @Autowired

@@ -11,10 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by liuming on 2016/6/28.
- * 商品类别业务接口
- */
 @Service
 public class GoodsTypeServiceImpl implements GoodsTypeService {
 

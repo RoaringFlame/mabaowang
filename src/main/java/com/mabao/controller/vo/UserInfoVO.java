@@ -1,9 +1,5 @@
 package com.mabao.controller.vo;
 
-/**
- * 用户基本信息VO
- * Created by jackie on 2016/07/15.
- */
 public class UserInfoVO {
     private Long userId;                        //用户ID
     private String userName;                    //用户名称

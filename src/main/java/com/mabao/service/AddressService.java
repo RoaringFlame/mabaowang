@@ -5,10 +5,6 @@ import com.mabao.dao.domain.Address;
 
 import java.util.List;
 
-/**
- * 地址业务接口
- * Created by jackie on 2016/07/06.
- */
 public interface AddressService {
     /**
      * 查默认收货地址

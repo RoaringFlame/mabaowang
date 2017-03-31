@@ -5,7 +5,6 @@ import com.mabao.util.VoUtil;
 
 import java.util.List;
 
-
 public class OrderVO {
     private Long id;                                //订单的id
     private List<GoodsVO> goodsVOList;              //订单中的商品

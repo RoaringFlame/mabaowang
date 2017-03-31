@@ -8,10 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * 首页广告业务
- * Created by jackie on 2016/07/09.
- */
 @Service
 public class BannerServiceImpl implements BannerService{
     @Autowired

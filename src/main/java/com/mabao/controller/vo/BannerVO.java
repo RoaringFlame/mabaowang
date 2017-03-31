@@ -6,10 +6,6 @@ import com.mabao.util.VoUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 首页广宝条
- * Created by jackie on 2016/07/09.
- */
 public class BannerVO {
     private Long id;                         //广告的id
     private Long goodsId;                    //商品的id

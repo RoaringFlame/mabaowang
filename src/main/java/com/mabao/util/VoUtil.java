@@ -6,10 +6,6 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
 
-/**
- * VO转化工具类
- * Created by liuming on 2015/11/21.
- */
 public class VoUtil {
     static Logger logger = LoggerFactory.getLogger(VoUtil.class);
 

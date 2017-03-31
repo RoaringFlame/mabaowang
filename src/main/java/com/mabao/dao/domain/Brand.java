@@ -2,10 +2,6 @@ package com.mabao.dao.domain;
 
 import javax.persistence.*;
 
-/**
- * 商品品牌
- * Created by jackie on 2016/07/09.
- */
 @Entity
 @Table(name = "t_brand")
 public class Brand {

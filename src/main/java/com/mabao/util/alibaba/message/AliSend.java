@@ -15,10 +15,6 @@ import java.io.IOException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
-/**
- * 阿里大鱼短信通道
- * 0成功 1失败 2未找到模版
- */
 @Component
 public class AliSend implements SmsInterface{
 

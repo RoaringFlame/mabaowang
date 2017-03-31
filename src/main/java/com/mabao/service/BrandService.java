@@ -5,10 +5,6 @@ import com.mabao.util.Selector;
 
 import java.util.List;
 
-/**
- * 品牌
- * Created by jackie on 2016/07/09.
- */
 public interface BrandService {
     /**
      * 获取启用的品牌

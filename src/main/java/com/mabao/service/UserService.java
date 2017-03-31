@@ -1,6 +1,5 @@
 package com.mabao.service;
 
-
 import com.mabao.controller.vo.JsonResultVO;
 import com.mabao.dao.domain.User;
 import org.springframework.web.multipart.MultipartFile;

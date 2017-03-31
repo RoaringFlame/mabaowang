@@ -10,10 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 行政区域业务
- * Created by jackie on 2016/07/10.
- */
 @Service
 public class AreaServiceImpl implements AreaService {
     @Autowired

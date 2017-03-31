@@ -2,10 +2,6 @@ package com.mabao.dao.domain;
 
 import javax.persistence.*;
 
-/**
- * 首页广告
- * Created by jackie on 2016/07/09.
- */
 @Entity
 @Table(name = "t_banner")
 public class Banner {

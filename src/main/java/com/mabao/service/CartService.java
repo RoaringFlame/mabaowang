@@ -5,10 +5,6 @@ import com.mabao.dao.domain.Cart;
 
 import java.util.List;
 
-/**
- * 购物车业务接口
- * Created by jackie on 2016/07/06.
- */
 public interface CartService {
 
     /**

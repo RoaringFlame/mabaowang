@@ -2,10 +2,6 @@ package com.mabao.dao.domain;
 
 import javax.persistence.*;
 
-/**
- * 商品尺码表
- * Created by jackie on 2016/07/09.
- */
 @Entity
 @Table(name = "t_goods_size_table")
 public class GoodsSize {

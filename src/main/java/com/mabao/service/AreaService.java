@@ -5,10 +5,6 @@ import com.mabao.util.Selector;
 
 import java.util.List;
 
-/**
- * 行政区域业务接口
- * Created by jackie on 2016/07/06.
- */
 public interface AreaService {
 
     /**

@@ -9,12 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-;
-
-/**
- * Created by liuming on 2016/6/28.
- * 商品业务接口
- */
 public interface GoodsService {
     /**
      * 新品

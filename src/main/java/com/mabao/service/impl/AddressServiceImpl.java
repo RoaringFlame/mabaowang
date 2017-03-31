@@ -12,10 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * 地址业务
- * Created by jackie on 2016/07/06.
- */
 @Service
 public class AddressServiceImpl implements AddressService {
     @Autowired

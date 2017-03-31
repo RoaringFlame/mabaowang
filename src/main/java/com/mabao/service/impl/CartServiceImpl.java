@@ -14,10 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-/**
- * 购物车业务
- * Created by jackie on 2016/07/06.
- */
 @Service
 public class CartServiceImpl implements CartService {
     @Autowired

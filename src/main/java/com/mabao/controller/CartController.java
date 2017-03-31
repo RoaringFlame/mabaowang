@@ -21,10 +21,6 @@ import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-/**
- * 购物车模块
- * @author jackie
- */
 @Controller
 @RequestMapping("/cart")
 public class CartController {
