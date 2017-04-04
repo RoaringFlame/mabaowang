@@ -3,7 +3,8 @@ package com.mabao.dao.domain;
 import com.mabao.dao.enums.Gender;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
+
 
 @Entity
 @Table(name = "t_baby")
