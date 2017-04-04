@@ -219,40 +219,42 @@
             </li>
             <!--新品列表 END-->
         </ul>
+
+        <!-- 猜你喜欢 -->
+        <div id="likeForm" class="you-like hide">
+            <p>请填写以下信息</p>
+            <label>宝宝姓名：
+                <input name="babyName" type="text"/>
+            </label>
+            <div style="display: none">
+                <label for="demo">Demo</label>
+                <select name="demo" id="demo" class="changes">
+                    <option value="date">Date</option>
+                    Demos
+                </select>
+            </div>
+            <div id="demo_default" class="demos">
+                <label for="test_default">宝宝生日：
+                    <input type="date" name="babyBirthday" id="test_default" style="text-align:left "/>
+                </label>
+            </div>
+            <label>宝宝性别：
+                <select name="sex" id="sex">
+                </select>
+            </label>
+            <label>宝宝爱好：
+                <input type="text" name="hobby"/></label>
+            <button id="btnLikeSubmit" class="like-up-button" type="submit">提交</button>
+        </div>
+        <div class="clear"></div>
+        <!-- 猜你喜欢END -->
+
         <div align="center">
             <button id="loadMore" type="submit">点击加载更多...</button>
         </div>
         <div id="noMore" align="center">所有商品已展示...</div>
     </div>
 
-    <!-- 猜你喜欢 -->
-    <div id="likeForm" class="you-like hide">
-        <p>请填写以下信息</p>
-        <label>宝宝姓名：
-            <input name="babyName" type="text"/>
-        </label>
-        <div style="display: none">
-            <label for="demo">Demo</label>
-            <select name="demo" id="demo" class="changes">
-                <option value="date">Date</option>
-                Demos
-            </select>
-        </div>
-        <div id="demo_default" class="demos">
-            <label for="test_default">宝宝生日：
-                <input type="date" name="babyBirthday" id="test_default" style="text-align:left "/>
-            </label>
-        </div>
-        <label>宝宝性别：
-            <select name="sex" id="sex">
-            </select>
-        </label>
-        <label>宝宝爱好：
-            <input type="text" name="hobby"/></label>
-        <button id="btnLikeSubmit" class="like-up-button" type="submit">提交</button>
-    </div>
-    <div class="clear"></div>
-    <!-- 猜你喜欢END -->
     <div class="tip" id="textShow"></div>
     <!--底部导航-->
     <div th:include="footer::foot"></div>
