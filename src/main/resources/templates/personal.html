@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>个人中心</title>
     <meta name="viewport"
           content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"/>
@@ -10,9 +10,55 @@
     <!-- iphone设备中的safari私有meta标签,允许全屏模式浏览，隐藏浏览器导航栏 -->
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <!-- iphone的私有标签,它指定的iphone中safari顶端的状态条的样式 -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" href="../static/css/master.css">
-    <link rel="stylesheet" href="../static/css/module.css">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <link rel="stylesheet" href="../static/css/master.css" th:href="@{/css/master.css}"/>
+    <link rel="stylesheet" href="../static/css/module.css" th:href="@{/css/module.css}"/>
+
+    <script type="text/javascript" src="../static/scripts/lib/jquery.1.10.2.js"
+            th:src="@{/scripts/lib/jquery.1.10.2.js}"></script>
+    <script type="text/javascript" src="../static/scripts/common.js" th:src="@{/scripts/common.js}"></script>
+    <script>
+        //建立一個可存取到該file的url
+        function getObjectURL(file) {
+            var url = null ;
+            if (window.createObjectURL!=undefined) { // basic
+                url = window.createObjectURL(file) ;
+            } else if (window.URL!=undefined) { // mozilla(firefox)
+                url = window.URL.createObjectURL(file) ;
+            } else if (window.webkitURL!=undefined) { // webkit or chrome
+                url = window.webkitURL.createObjectURL(file) ;
+            }
+            return url ;
+        }
+        $(function(){
+            $("#fileUpload").change(function(){
+                var objUrl = getObjectURL(this.files[0]) ;
+                if (objUrl) {
+//						$("#imgUpload").attr("src", objUrl);
+                    var path = MB.getRootPath();
+                    path += "/" + "person/headerPic";
+                    var filename = $("#fileUpload").val();
+                    var formData = new FormData();
+                    formData.append('headerPic', $('#fileUpload')[0].files[0]);
+                    $.ajax({
+                        url: path,
+                        type: 'POST',
+                        cache: false,
+                        data: formData,
+                        processData: false,
+                        contentType: false
+                    }).done(function(res) {
+                        window.location = "user";
+                    }).fail(function(res) {
+                        window.location = "user";
+                    });
+                }
+            }) ;
+            $("#imgUpload").click(function(){
+                $("#fileUpload").trigger("click");
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -22,7 +68,7 @@
         个人中心
         <!--操作按钮-->
         <div class="header-box">
-            <a href="personal.html">
+            <a href="index.html" th:href="@{/}">
                 <p class="header-left">
                     <i class="icon icon-return"></i>
                     返回
@@ -32,12 +78,16 @@
         <!--操作按钮 END-->
     </header>
     <!--标题 END-->
+
     <!--宝宝图片上传-->
     <div class="baby-photo">
-        <figure><img src="../img/u6.jpg" alt="头像"></figure>
+        <figure id="uploadForm">
+            <input name="headerPic" type="file" accept="image/png,image/gif" style="display: none;" id="fileUpload"/>
+            <img  src="../static/upload/header/user/u6.JPG" th:src="@{'/upload/header/user/'+${userInfo.userPicture}}" alt="头像" id="imgUpload"/>
+        </figure>
         <figcaption>
-            <p>lei.yin</p>
-            <p class="line">宝宝：八个月的霸王龙</p>
+            <p th:text="${userInfo.userName}"></p>
+            <p class="line" th:text="'宝宝:'+${userInfo.babyName}"></p>
         </figcaption>
     </div>
     <!--宝宝图片上传-END-->
@@ -68,7 +118,6 @@
         <!--个人中心操作-->
         <div class="personal-center-control">
             <a href="message.html"><p>修改密码</p></a>
-            <a href="javascript:;"><p>绑定微信（调用微信接口）</p></a>
             <a href="address.html"><p>收货地址</p></a>
             <a href="permsg.html"><p>宝宝信息</p></a>
             <a href="bindphone.html"><p>绑定手机</p></a>
@@ -77,29 +126,13 @@
     </div>
     <!--个人中心信息END-->
     <!--注销按钮-->
-    <a class="button-bottom" href="login.html">
+    <a class="button-bottom" href="index.html">
         <button class="submit" type="reset">注销</button>
     </a>
     <div class="blank"></div>
     <!--注销按钮END-->
     <!--底部导航-->
-    <div class="menu" id="menu">
-        <a href="index.html">
-            <i class="icon-menu icon-menu1"><img src="../static/images/footer-1.png" alt=""></i>
-        </a>
-        <a>
-            <i class="icon-menu icon-menu2"><img src="../static/images/footer-2.png" alt=""></i>
-        </a>
-        <a href="consignment.html">
-            <i class="icon-menu icon-menu3"><img src="../static/images/footer-3.png" alt=""></i>
-        </a>
-        <a href="shopping.html" >
-            <i class="icon-menu icon-menu4"><img src="../static/images/footer-4.png" alt=""></i>
-        </a>
-        <a href="personal.html">
-            <i class="icon-menu icon-menu5"><img src="../static/images/footer-c5.png" alt=""></i>
-        </a>
-    </div>
+    <div th:include="footer::foot"></div>
     <!--底部导航 END-->
 </div>
 </body>
