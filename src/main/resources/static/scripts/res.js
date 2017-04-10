@@ -50,7 +50,7 @@ $(function () {
         } else {
             return false;
         }
-    })
+    });
 
     //用户名校验
     function usernameCheck() {
@@ -111,4 +111,4 @@ $(function () {
             $('.warning').text('请输入正确的email格式');
         }
     }
-})
+});

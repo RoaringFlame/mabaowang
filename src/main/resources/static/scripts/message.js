@@ -61,11 +61,11 @@ function settime(obj) {
     countdown = getCookieValue("remained");
     if (countdown == undefined) {
         obj.removeAttr("disabled");
-        obj.text("获取验证码");
+        obj.text("获取验证");
         return;
     } else {
         obj.attr("disabled", true);
-        obj.text("重新发送(" + countdown + ")");
+        obj.text("重发(" + countdown + ")");
         countdown--;
         editCookie("remained", countdown, countdown + 1);
     }
@@ -76,7 +76,7 @@ function settime(obj) {
 
 //发送验证码
 function sendCode(obj) {
-    doPostBack('person/sendMes', sendBack, {"state": 2});
+    doPostBack(MB.getContextPath()+'/person/sendMes', sendBack, {"state": 2});
     addCookie("remained", count, count); //添加cookie记录,测试为5秒
     settime(obj);//开始倒计时
     $('#warning').text('');
@@ -100,7 +100,7 @@ function submitCode() {
     if (countdown > 0) {
         if ($("#code").val() != "") {
             var code = $("#code").val();
-            doPostBack('person/submitCode', submitBack, {"state": 2, "code": code});
+            doPostBack(MB.getContextPath()+'/person/submitCode', submitBack, {"state": 2, "code": code});
         }
         else {
             $('#warning').text('请输入验证码！');
@@ -123,7 +123,7 @@ function submitBack(data) {
     if (data.status != "success") {
         $('#warning').text(data.message);
     } else {//返回验证码
-        window.location = "user/changePwd?code=" + data.message;
+        window.location = MB.getContextPath()+"/user/changePwd?code=" + data.message;
     }
 }
 
@@ -143,6 +143,6 @@ function backFunc2(data) {
         alert(data.message);
     } else {//返回验证码
         alert("回调验证码:" + data.message);
-        window.location = "user/changePwd?code=" + data.message;
+        window.location = MB.getContextPath()+"/user/changePwd?code=" + data.message;
     }
 }

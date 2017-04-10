@@ -249,8 +249,9 @@ $(function () {
     function initBaby(baby, gender) {
         //初始化宝宝
         if (baby != "" && baby != null && typeof(baby) != "undefined") {
-            console.log(babyIF);
             babyIF = baby;
+            var JsonDateValue = new Date(parseInt(babyIF.birthday));
+            babyIF.birthday = JsonDateValue.getFullYear()+"-"+JsonDateValue.getMonth()+"-"+JsonDateValue.getDay();
         }
         //初始化宝宝性别
         var genderList = gender;

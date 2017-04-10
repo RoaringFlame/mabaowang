@@ -10,7 +10,7 @@ $(function () {
     var submit = $(".edit-add-input input");                        //提交按钮
     //初始化第一个下拉框
     function initDropDownList() {
-        MB.sendAjax("get", "provinces", {}, function (data) {
+        MB.sendAjax("get", MB.getContextPath()+"/provinces", {}, function (data) {
             console.log(data);
             $(data).each(function (index,province) {               //为第一个下拉框添加省份节点
                 provinces.append($("<option></option>")
@@ -25,7 +25,7 @@ $(function () {
     //第一个下拉框改变事件
     function fistDropDownListChange() {
         provinceId = provinces.val();               //获取第二个下拉框城市对应的provinceId
-        MB.sendAjax("get", "province/" + provinceId + "/allCity", {}, function (data) {
+        MB.sendAjax("get", MB.getContextPath()+"/province/" + provinceId + "/allCity", {}, function (data) {
             $(data).each(function (index,city) {              //为第二个下拉框添加第一个下拉框选择省份的对应城市信息
                 cities.append($("<option></option>")
                     .val(city.key)
@@ -39,7 +39,7 @@ $(function () {
     //第二个下拉框改变事件
     function secondDropDownListChange() {
         cityId = cities.val();              //获取第二个下拉框城市对应的cartId
-        MB.sendAjax("get", "city/" + cityId + "/allCounty", {}, function (data) {
+        MB.sendAjax("get",MB.getContextPath()+"/city/" + cityId + "/allCounty", {}, function (data) {
             $(data).each(function (index,country) {                   //为第三个下拉框添加对应城市的区信息
                 countries.append($("<option></option>")
                     .val(country.key)

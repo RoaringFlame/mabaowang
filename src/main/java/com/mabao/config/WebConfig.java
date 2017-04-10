@@ -24,7 +24,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/consignment").setViewName("consignment");
         registry.addViewController("/user/shopping").setViewName("shopping");
         registry.addViewController("/user/personal").setViewName("personal");
-        registry.addViewController("/user/new_address").setViewName("new_address");
+        registry.addViewController("/user/new_address").setViewName("newaddress");
         registry.addViewController("/user/consale").setViewName("consale");
         registry.addViewController("/user/selfup").setViewName("selfup");
         registry.addViewController("/user/purchase_order").setViewName("purchase_order");

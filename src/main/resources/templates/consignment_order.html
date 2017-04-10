@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>寄售订单</title>
+    <meta charset="UTF-8"/>
+    <title>寄售商品</title>
     <meta name="viewport"
           content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"/>
     <!-- 禁止将数字变为电话号码 -->
@@ -10,10 +10,10 @@
     <!-- iphone设备中的safari私有meta标签,允许全屏模式浏览，隐藏浏览器导航栏 -->
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <!-- iphone的私有标签,它指定的iphone中safari顶端的状态条的样式 -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <!--     <script type="text/javascript" src="../js/jquery.1.10.2.js"></script> -->
-    <link rel="stylesheet" href="../static/css/master.css">
-    <link rel="stylesheet" href="../static/css/module.css">
+    <link rel="stylesheet" href="../static/css/master.css" th:href="@{/css/master.css}"/>
+    <link rel="stylesheet" href="../static/css/module.css" th:href="@{/css/module.css}"/>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
         寄售商品
         <!--操作按钮-->
         <div class="header-box">
-            <a href="personal.html">
+            <a href="personal.html" th:href="@{/user}">
                 <p class="header-left">
                     <i class="icon icon-return"></i>
                     返回
@@ -35,40 +35,17 @@
     <!--标题 END-->
     <!-- 我是卖家——寄售订单 -->
     <div class="order">
-
-        <!-- 商品-->
-        <div class="order-box" onclick=window.location.href="detail.html">
-            <p class="unpaid-txt">交易完成</p>
-            <img src="../static/images/u8.jpg" alt="宝物">
-            <div class="order-box-right">
-                <p>H&M CARDIGAN</p>
-                <p>尺寸：S</p>
-                <p class="order-box-left">出售价格：￥35.5</p>
-                <p class="order-box-left">扣除佣金可得：￥30.0</p>
-            </div>
-        </div>
-        <!-- 商品END -->
-        <!-- 商品 -->
-        <div class="order-box" onclick=window.location.href="detail.html">
-            <p class="unpaid-txt">商品已上架</p>
-            <img src="../static/images/u20.jpg" alt="宝物">
-            <div class="order-box-right">
-                <p>H&M CARDIGAN</p>
-                <p>尺寸：S</p>
-                <p class="order-box-left">出售价格：￥35.5</p>
-                <p class="order-box-left">扣除佣金可得：￥30.0</p>
-            </div>
-        </div>
-        <!-- 商品END -->
-        <!-- 商品 -->
-        <div class="order-box" onclick=window.location.href="detail.html">
-            <p class="unpaid-txt">商品上架中</p>
-            <img src="../static/images/u20.jpg" alt="宝物">
-            <div class="order-box-right">
-                <p>H&M CARDIGAN</p>
-                <p>尺寸：S</p>
-                <p class="order-box-left">出售价格：￥35.5</p>
-                <p class="order-box-left">扣除佣金可得：￥30.0</p>
+        <div th:each="goods:${goodsList}">
+            <!-- 商品-->
+            <div class="order-box">
+                <p class="unpaid-txt" th:text="${goods.state}">交易完成</p>
+                <img  src="../static/images/u8.jpg" th:src="@{'/upload/'+${goods.picture}}" alt="宝物"/>
+                <div class="order-box-right">
+                    <p th:text="${goods.brandName+' '+goods.title}">H-M CARDIGAN</p>
+                    <p th:text="'尺寸：'+${goods.size}">尺寸：S</p>
+                    <p class="order-box-left" th:text="'出售价格：￥'+${goods.price}">出售价格：￥35.5</p>
+                    <p class="order-box-left" th:text="'扣除佣金可得：￥'+${goods.price - 3.00}">扣除佣金可得：￥32.5</p>
+                </div>
             </div>
             <!-- 商品END -->
         </div>

@@ -53,8 +53,13 @@ public class BabyServiceImpl implements BabyService {
      * @return                      宝宝对象
      */
     @Override
-    public Baby updateBabyInfo(Baby babyInfo) {
-        return this.babyRepository.saveAndFlush(babyInfo);
+    public Baby updateBabyInfo(BabyVO babyInfo) {
+        Baby newBaby = this.babyRepository.findOne(babyInfo.getId());
+        newBaby.setName(babyInfo.getName());
+        newBaby.setBirthday(babyInfo.getBirthday());
+        newBaby.setGender(babyInfo.getGender());
+        newBaby.setHobby(babyInfo.getHobby());
+        return this.babyRepository.saveAndFlush(newBaby);
     }
     /**
      * 查看某用户宝宝信息

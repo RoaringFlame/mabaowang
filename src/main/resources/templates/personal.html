@@ -17,48 +17,7 @@
     <script type="text/javascript" src="../static/scripts/lib/jquery.1.10.2.js"
             th:src="@{/scripts/lib/jquery.1.10.2.js}"></script>
     <script type="text/javascript" src="../static/scripts/common.js" th:src="@{/scripts/common.js}"></script>
-    <script>
-        //建立一個可存取到該file的url
-        function getObjectURL(file) {
-            var url = null ;
-            if (window.createObjectURL!=undefined) { // basic
-                url = window.createObjectURL(file) ;
-            } else if (window.URL!=undefined) { // mozilla(firefox)
-                url = window.URL.createObjectURL(file) ;
-            } else if (window.webkitURL!=undefined) { // webkit or chrome
-                url = window.webkitURL.createObjectURL(file) ;
-            }
-            return url ;
-        }
-        $(function(){
-            $("#fileUpload").change(function(){
-                var objUrl = getObjectURL(this.files[0]) ;
-                if (objUrl) {
-//						$("#imgUpload").attr("src", objUrl);
-                    var path = MB.getRootPath();
-                    path += "/" + "person/headerPic";
-                    var filename = $("#fileUpload").val();
-                    var formData = new FormData();
-                    formData.append('headerPic', $('#fileUpload')[0].files[0]);
-                    $.ajax({
-                        url: path,
-                        type: 'POST',
-                        cache: false,
-                        data: formData,
-                        processData: false,
-                        contentType: false
-                    }).done(function(res) {
-                        window.location = "user";
-                    }).fail(function(res) {
-                        window.location = "user";
-                    });
-                }
-            }) ;
-            $("#imgUpload").click(function(){
-                $("#fileUpload").trigger("click");
-            });
-        });
-    </script>
+    <script type="text/javascript" src="../static/scripts/personal.js" th:src="@{/scripts/personal.js}"></script>
 </head>
 
 <body>
@@ -83,7 +42,8 @@
     <div class="baby-photo">
         <figure id="uploadForm">
             <input name="headerPic" type="file" accept="image/png,image/gif" style="display: none;" id="fileUpload"/>
-            <img  src="../static/upload/header/user/u6.JPG" th:src="@{'/upload/header/user/'+${userInfo.userPicture}}" alt="头像" id="imgUpload"/>
+            <img src="../static/upload/header/user/u6.JPG" th:src="@{'/upload/header/user/'+${userInfo.userPicture}}"
+                 alt="头像" id="imgUpload"/>
         </figure>
         <figcaption>
             <p th:text="${userInfo.userName}"></p>
@@ -97,10 +57,10 @@
         <div>
             <p class="order-bottom">我是<span class="red">买家</span></p>
             <ul>
-                <li><a class="link" href="purchase_order.html">全部</a></li>
-                <li><a href="unpaid_order.html">待付款</a></li>
-                <li><a href="nopackaged_order.html">待发货</a></li>
-                <li><a href="ckeck_order.html">待确认</a></li>
+                <li><a class="link" href="purchase_order.html" th:href="@{/order/search(state=3,page=0,pageSize=100)}">全部订单</a></li>
+                <li><a href="unpaid_order.html" th:href="@{/order/search(state=0,page=0,pageSize=100)}">待付款</a></li>
+                <li><a href="nopackaged_order.html" th:href="@{/order/search(state=1,page=0,pageSize=100)}">待发货</a></li>
+                <li><a href="ckeck_order.html" th:href="@{/order/search(state=2,page=0,pageSize=100)}">待收货</a></li>
             </ul>
         </div>
         <!--我是买家订单END-->
@@ -108,25 +68,25 @@
         <div>
             <p class="order-bottom">我是<span class="blue">卖家</span></p>
             <ul>
-                <li><a class="link" href="consignment_order.html">全部</a></li>
-                <li><a href="finish_order.html">已出售</a></li>
-                <li><a href="published_order.html">已发布</a></li>
-                <li><a href="unpublished_order.html">待发货</a></li>
+                <li><a class="link" href="consignment_order.html" th:href="@{/sell/search(goodsState=4,page=0,pageSize=100)}">我的商品</a></li>
+                <li><a href="finish_order.html" th:href="@{/sell/search(goodsState=3,page=0,pageSize=100)}">已出售</a></li>
+                <li><a href="published_order.html" th:href="@{/sell/search(goodsState=1,page=0,pageSize=100)}">已发布</a></li>
+                <li><a href="unpublished_order.html" th:href="@{/sell/search(goodsState=2,page=0,pageSize=100)}">待上架</a></li>
             </ul>
         </div>
         <!--我是买家订单END-->
         <!--个人中心操作-->
         <div class="personal-center-control">
-            <a href="message.html"><p>修改密码</p></a>
-            <a href="address.html"><p>收货地址</p></a>
-            <a href="permsg.html"><p>宝宝信息</p></a>
-            <a href="bindphone.html"><p>绑定手机</p></a>
+            <a href="message.html" th:href="@{/user/changePwd/sendMes}"><p>修改密码</p></a>
+            <a href="address.html" th:href="@{/user/address/userAllAddress}"><p>收货地址</p></a>
+            <a href="permsg.html" th:href="@{/user/baby/allBabyInfo}"><p>宝宝信息</p></a>
+            <a href="bindphone.html" th:href="@{/user/bindphone}"><p>绑定手机</p></a>
         </div>
         <!--个人中心操作END-->
     </div>
     <!--个人中心信息END-->
     <!--注销按钮-->
-    <a class="button-bottom" href="index.html">
+    <a class="button-bottom" href="index.html" th:href="@{/logout}">
         <button class="submit" type="reset">注销</button>
     </a>
     <div class="blank"></div>

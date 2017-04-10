@@ -4,8 +4,6 @@ $(function () {
     var cityId;                    //城市id
     var areaId;                    //地区id
     var defaultProvinceId;
-    var defaultCityId;
-    var defaultCountryId;
     var dropDownList = $(".edit-add-box").find("label");
     var provinces = dropDownList.find("select:eq(0)");                           //省份下拉框
     var cities = dropDownList.find("select:eq(1)");                              //市下拉框
@@ -16,9 +14,7 @@ $(function () {
     //初始化下拉框
     function initDropDownList() {
         defaultProvinceId = provinces.val();
-        //defaultCityId = cities.val();
-        //defaultCountryId = countries.val();
-        $.get("provinces", {}, function (data) {
+        $.get(MB.getContextPath() + "/provinces", {}, function (data) {
             $(data).each(function (index, province) {
                 if (province.key !== defaultProvinceId) {
                     provinces.append(                   //为第一个下拉框添加省份节点
@@ -34,8 +30,8 @@ $(function () {
 
     //第一个下拉框改变事件
     function fistDropDownListChange() {
-        provinceId=provinces.val();                                          //获取第二个下拉框城市对应的provinceId
-        $.get("province/" + provinceId + "/allCity", {}, function (data) {
+        provinceId = provinces.val();                                          //获取第二个下拉框城市对应的provinceId
+        $.get(MB.getContextPath() + "/province/" + provinceId + "/allCity", {}, function (data) {
             $(data).each(function (index, city) {                           //为第二个下拉框添加对应城市信息
                 if (city.key !== cityId) {
                     cities.append($("<option></option>")
@@ -46,13 +42,12 @@ $(function () {
             });
             secondDropDownListChange();
         }, "json");
-
     }
 
     //第二个下拉框改变事件
     function secondDropDownListChange() {
         cityId = cities.val();                                               //获取第二个下拉框城市对应的cartId
-        $.get("city/" + cityId + "/allCounty", {}, function (data) {
+        $.get(MB.getContextPath() + "/city/" + cityId + "/allCounty", {}, function (data) {
             //countries.empty();                                             //移除第三个下拉框的城区节点
             $(data).each(function (index, country) {
                 if (country.key !== areaId) {
@@ -102,14 +97,14 @@ $(function () {
             } else if (!(/^1[3|4|5|7|8]\d{9}$/.test(tel))) {
                 showMsg("您的电话格式不对！");
             } else {
-                provinceId=provinces.val();                                 //获取当前省份值
+                provinceId = provinces.val();                                 //获取当前省份值
                 $("#provinceId").val(provinceId);
-                cityId=cities.val();                                        //获取当前市值
+                cityId = cities.val();                                        //获取当前市值
                 $("#cityId").val(cityId);
                 areaId = countries.val();                                    //获取当前区值
                 $("#areaId").val(areaId);
                 addressForm.attr("method", "post");                                                //以post方式提交表单
-                addressForm.attr("action", "user/address/updateAddress");
+                addressForm.attr("action", MB.getContextPath() + "/user/address/updateAddress");
                 addressForm.submit();
             }
         });

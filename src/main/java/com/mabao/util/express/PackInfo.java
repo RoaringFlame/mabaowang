@@ -1,6 +1,8 @@
 package com.mabao.util.express;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.mabao.util.CustomJsonDateDeserializer;
 
 import java.util.Date;
 import java.util.List;
@@ -10,9 +12,10 @@ public class PackInfo {
     private String nu;
     private String ischeck;
     private String com;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updatetime;
+    @JsonIgnore
     private String status;
+    private String state;
     private String condition;
     private List<PackDetails> data;
 
@@ -52,6 +55,7 @@ public class PackInfo {
         return updatetime;
     }
 
+    @JsonDeserialize(using = CustomJsonDateDeserializer.class)
     public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
     }
@@ -62,6 +66,14 @@ public class PackInfo {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getCondition() {
@@ -82,16 +94,16 @@ public class PackInfo {
 
     @Override
     public String toString() {
-        StringBuilder s = new StringBuilder();
-        s.append("PackInfo [message=" + message + ", nu=" + nu + ", ischeck="
-                + ischeck + ", com=" + com + ", updatetime=" + updatetime
-                + ", status=" + status + ", condition=" + condition + "]");
-        if (data != null) {
-            for (PackDetails k : data) {
-                s.append(k.toString());
-            }
-        }
-        return s.toString();
+        return "PackInfo{" +
+                "message='" + message + '\'' +
+                ", nu='" + nu + '\'' +
+                ", ischeck='" + ischeck + '\'' +
+                ", com='" + com + '\'' +
+                ", updatetime=" + updatetime +
+                ", status='" + status + '\'' +
+                ", state='" + state + '\'' +
+                ", condition='" + condition + '\'' +
+                ", data=" + data +
+                '}';
     }
-
 }

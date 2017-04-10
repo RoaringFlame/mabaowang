@@ -30,18 +30,18 @@ $(function () {
         //点击图片进入商品详情
         $(".order-box").click(function () {
             var goodsId = $(this).find(".goodsId").text();
-            window.location = "goods/goodsDetail?goodsId=" + goodsId;
+            window.location = MB.getContextPath() + "/goods/goodsDetail?goodsId=" + goodsId;
         });
         //点击地址信息进入所有地址页面
         $(".box-right").click(function () {
-            window.location = "user/address/userAllAddress";
+            window.location = MB.getContextPath() + "/user/address/userAllAddress";
         });
         //点击编辑地址按钮进入编辑地址页面
         $("button.add-jump-arrow").click(function () {
             var addressId = $("input[name='addressId']").val();
             if (addressId !== "") {
-                window.location = "user/address/getAddress?addressId=" + addressId;
-            }else {
+                window.location = MB.getContextPath() + "/user/address/getAddress?addressId=" + addressId;
+            } else {
                 showMsg("请先添加收货地址！");
             }
         });

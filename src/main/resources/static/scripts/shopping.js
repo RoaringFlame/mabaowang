@@ -13,7 +13,7 @@ $(function () {
     //获取商品信息
     function getGoods() {
         $("#textShow").hide();                          //提示框的隐藏
-        MB.sendAjax("get", "cart/showCart", {}, function (data) {
+        MB.sendAjax("get","cart/showCart", {}, function (data) {
             $(data).each(function (index, goods) {
                 var newGoods = $("#goodsContainer").find("div.main-item").clone();                       //克隆goodsContainer中商品信息
                 newGoods.find("div.cartId").text(goods.id);                                              //从后台获取cartId
@@ -40,7 +40,7 @@ $(function () {
                 var num = parseInt($(this).prev("p").text());                         //获取当前商品数量
                 var flag = false;
                 $.ajax({
-                    url : 'cart/changeNum/' + cartId,
+                    url : MB.getContextPath()+'/cart/changeNum/' + cartId,
                     type : 'get',
                     async: false,//使用同步的方式,true为异步方式
                     data : {opt: 1},//这里使用json对象
@@ -67,7 +67,7 @@ $(function () {
                 var flag = false;
 
                 $.ajax({
-                    url : 'cart/changeNum/' + cartId,
+                    url : MB.getContextPath()+'/cart/changeNum/' + cartId,
                     type : 'get',
                     async: false,//使用同步的方式,true为异步方式
                     data : {opt: 2},//这里使用json对象
@@ -93,7 +93,7 @@ $(function () {
             main.find(".goods-del").click(function () {
                 var cartId = $(this).prevAll("div.cartId").text();
                 var delItem = $(this).parent();
-                MB.sendAjax("DELETE", "cart/deleteGoods/" + cartId, {}, function () {
+                MB.sendAjax("DELETE", "/cart/deleteGoods/" + cartId, {}, function () {
                     delItem.remove();          //删除购物车商品
                     setTotal();                //点击删除按钮后重新计算总价
                     cartIds = cartIds.replace(cartId + ",", '');                          //从cartIds中删除已经删除的商品的cartId
@@ -109,12 +109,12 @@ $(function () {
             //点击图片进入商品详情
             main.find(".main-item").find("img").click(function () {
                 var goodsId = $(this).prevAll(".goodsId").text();
-                window.location = "goods/goodsDetail?goodsId=" + goodsId;
+                window.location = MB.getContextPath()+"/goods/goodsDetail?goodsId=" + goodsId;
             });
             //点击商品信息进入商品详情
             $(".goods-info").click(function () {
                 var goodsId = $(this).prevAll(".goodsId").text();
-                window.location = "goods/goodsDetail?goodsId=" + goodsId;
+                window.location = MB.getContextPath()+"/goods/goodsDetail?goodsId=" + goodsId;
             });
             setTotal();                      //计算总价
             initEdit();                      //编辑按钮初始化

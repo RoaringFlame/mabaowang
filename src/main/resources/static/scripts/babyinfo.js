@@ -1,6 +1,3 @@
-/**
- * Created by lies on 2016/7/24.
- */
 "use strict";
 $(function () {
 

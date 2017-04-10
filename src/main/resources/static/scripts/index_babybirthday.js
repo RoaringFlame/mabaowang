@@ -26,7 +26,7 @@ $(function () {
                     display: $('#display').val(),
                     dateFormat: 'yy-mm-dd',
                     setText: '确定', //确认按钮名称
-                    cancelText: '清空',//取消按钮名籍我
+                    cancelText: '清空'//取消按钮名籍我
                 }));
         });
         $('#demo').trigger('change');

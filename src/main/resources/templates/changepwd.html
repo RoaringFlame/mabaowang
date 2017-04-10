@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>修改密码</title>
     <meta name="viewport"
           content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"/>
@@ -10,10 +10,15 @@
     <!-- iphone设备中的safari私有meta标签,允许全屏模式浏览，隐藏浏览器导航栏 -->
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <!-- iphone的私有标签,它指定的iphone中safari顶端的状态条的样式 -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 
-    <link rel="stylesheet" href="../static/css/master.css">
-    <link rel="stylesheet" href="../static/css/module.css">
+    <link rel="stylesheet" href="../static/css/master.css" th:href="@{/css/master.css}"/>
+    <link rel="stylesheet" href="../static/css/module.css" th:href="@{/css/module.css}"/>
+
+    <script type="text/javascript" src="../static/scripts/lib/jquery.1.10.2.js"
+            th:src="@{/scripts/lib/jquery.1.10.2.js}"></script>
+    <script type="text/javascript" src="../static/scripts/common.js" th:src="@{/scripts/common.js}"></script>
+    <script type="text/javascript" src="../static/scripts/changepwd.js" th:src="@{/scripts/changepwd.js}"></script>
 </head>
 <body>
 <div class="content-index">
@@ -22,7 +27,7 @@
         修改密码
         <!--操作按钮-->
         <div class="header-box">
-            <a href="personal.html">
+            <a href="personal.html" th:href="@{/user}">
                 <p class="header-left">
                     <i class="icon icon-return"></i>
                     返回
@@ -33,7 +38,7 @@
     </header>
     <!--标题 END-->
     <!--修改密码表单-->
-    <form class="change-pwd" action="">
+    <div class="change-pwd">
 
         <!-- 修改密码成功跳转到个人中心页面 -->
         <label for="newPwd">新密码:
@@ -47,10 +52,10 @@
         <!-- 提交按钮 -->
         <!--提交后跳转到登陆页面-->
         <div class="button-bottom">
-        <button class="submit" type="submit" value="提交">提交</button>
+            <button class="submit" type="button" value="提交" id="up-pwd">提交</button>
         </div>
         <!--提交按钮END-->
-    </form>
+    </div>
     <!--修改密码表单END-->
 </div>
 </body>

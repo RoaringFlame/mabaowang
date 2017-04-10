@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>我是买家</title>
     <meta name="viewport"
           content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"/>
@@ -10,9 +10,12 @@
     <!-- iphone设备中的safari私有meta标签,允许全屏模式浏览，隐藏浏览器导航栏 -->
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <!-- iphone的私有标签,它指定的iphone中safari顶端的状态条的样式 -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" href="../static/css/master.css">
-    <link rel="stylesheet" href="../static/css/module.css">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <link rel="stylesheet" href="../static/css/master.css" th:href="@{/css/master.css}"/>
+    <link rel="stylesheet" href="../static/css/module.css" th:href="@{/css/module.css}"/>
+    <link rel="stylesheet" href="../static/css/transport.css" th:href="@{/css/transport.css}"/>
+
 
 </head>
 
@@ -23,7 +26,7 @@
     查看物流
     <!--操作按钮-->
     <div class="header-box">
-        <a href="index.html">
+        <a href="ckeck_order.html" th:href="@{/order/search(state=2,page=0,pageSize=100)}">
             <p class="header-left">
                 <i class="icon icon-return"></i>
                 返回
@@ -36,76 +39,34 @@
 </header>
 <!--标题 END-->
 
-<div class="content-index">
-    <div class="transport-box">
-        <p>物流公司: <span>百世汇通</span></p>
-        <p>运单号: <span>1252035213</span></p>
-        <div>
-
-            <ul>
-
-                <li class="first">
-
-                    <p>2015-04-28 11:23:28</p>
-
-                    <p>妥投投递并签收，签收人：他人收 他人收</p>
-
-                    <span class="before"></span><span class="after"></span><i class="mh-icon mh-icon-new"></i>
-                </li>
-
-                <li>
-
-                    <p>2015-04-28 07:38:44</p>
-
-                    <p>深圳市南油速递营销部安排投递（投递员姓名：蔡远发<a href="tel:18718860573">18718860573</a>;联系电话：）</p>
-
-                    <span class="before"></span><span class="after"></span></li>
-
-                <li>
-
-                    <p>2015-04-28 05:08:00</p>
-
-                    <p>到达广东省邮政速递物流有限公司深圳航空邮件处理中心处理中心（经转）</p>
-
-                    <span class="before"></span><span class="after"></span></li>
-
-                <li>
-
-                    <p>2015-04-28 00:00:00</p>
-
-                    <p>离开中山市 发往深圳市（经转）</p>
-
-                    <span class="before"></span><span class="after"></span></li>
-
-                <li>
-
-                    <p>2015-04-27 15:00:00</p>
-
-                    <p>到达广东省邮政速递物流有限公司中山三角邮件处理中心处理中心（经转）</p>
-
-                    <span class="before"></span><span class="after"></span></li>
-
-                <li>
-
-                    <p>2015-04-27 08:46:00</p>
-
-                    <p>离开泉州市 发往中山市</p>
-
-                    <span class="before"></span><span class="after"></span></li>
-
-                <li>
-
-                    <p>2015-04-26 17:12:00</p>
-
-                    <p>泉州市速递物流分公司南区电子商务业务部已收件，（揽投员姓名：王晨光;联系电话：<a href="tel:13774826403">13774826403</a>）</p>
-
-                    <span class="before"></span><span class="after"></span></li>
-
-            </ul>
+<div data-mohe-type="kuaidi_new" class="g-mohe content-index" id="mohe-kuaidi_new">
+    <div th:if="${expressVO ne null}">
+        <div class="transport-box">
+            <p>物流公司: <span th:text="${expressVO.company}">百世汇通</span></p>
+            <p>运单号: <span th:text="${expressVO.portNum}">1252035213</span></p>
         </div>
-
+        <div id="mohe-kuaidi_new_nucom">
+            <div class="mohe-wrap mh-wrap">
+                <div class="mh-cont mh-list-wrap mh-unfold">
+                    <div class="mh-list">
+                        <ul>
+                            <div th:each="contentVO,state:${expressVO.contentList}">
+                                <li th:classappend="${state.first?'first':''}">
+                                    <p th:text="${contentVO.time}">2015-04-28 11:23:28</p>
+                                    <p th:text="${contentVO.context}">妥投投递并签收，签收人：他人收 他人收</p>
+                                    <span class="before"></span><span class="after"></span>
+                                    <i th:classappend="${state.first?'mh-icon mh-icon-new':''}"></i>
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
+    <div th:if="${expressVO eq null}">
+        暂无物流信息
+    </div>
 </div>
 
 </body>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>短信验证</title>
     <meta name="viewport"
           content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"/>
@@ -10,10 +10,15 @@
     <!-- iphone设备中的safari私有meta标签,允许全屏模式浏览，隐藏浏览器导航栏 -->
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <!-- iphone的私有标签,它指定的iphone中safari顶端的状态条的样式 -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 
-    <link rel="stylesheet" href="../static/css/master.css">
-    <link rel="stylesheet" href="../static/css/module.css">
+    <link rel="stylesheet" href="../static/css/master.css" th:href="@{/css/master.css}"/>
+    <link rel="stylesheet" href="../static/css/module.css" th:href="@{/css/module.css}"/>
+
+    <script type="text/javascript" src="../static/scripts/lib/jquery.1.10.2.js"
+            th:src="@{/scripts/lib/jquery.1.10.2.js}"></script>
+    <script type="text/javascript" src="../static/scripts/common.js" th:src="@{/scripts/common.js}"></script>
+    <script type="text/javascript" src="../static/scripts/message.js" th:src="@{/scripts/message.js}"></script>
 </head>
 
 <body>
@@ -23,7 +28,7 @@
         短信验证
         <!--操作按钮-->
         <div class="header-box">
-            <a href="personal.html">
+            <a href="personal.html" th:href="@{/user}">
                 <p class="header-left">
                     <i class="icon icon-return"></i>
                     返回
@@ -34,23 +39,29 @@
     </header>
     <!--标题 END-->
     <!-- 找回密码表单 -->
-    <form class="get-back-pwd" action="">
-        <!--当前绑定手机号为用户号码-->
-        <p>当前绑定手机号为159****3504</p>
-        <!-- 找回密码跳转到修改密码页面 -->
-        <button type="submit" class="button-right">发送验证</button>
-        <label>
-            <input type="text" placeholder="验证码">
-        </label>
-        <div class="clear"></div>
-        <p class="warning">hrdjyrjt</p>
-        <div style="height: 3rem;"></div>
-        <!--提交按钮-->
-        <a class="button-bottom" href="changepwd.html">
-            <button type="submit" class="submit">提交</button>
-        </a>
-        <!--提交按钮END-->
-    </form>
+    <div th:if="${phone ne ''}">
+        <div class="get-back-pwd">
+            <!--当前绑定手机号为用户号码-->
+            <p th:text="'当前绑定手机号'+${phone}">当前绑定手机号为159****3504</p>
+            <!-- 找回密码跳转到修改密码页面 -->
+            <button type="submit" class="button-right" id="sendSms">获取验证</button>
+            <label>
+                <input type="text" placeholder="验证码" id="code"/>
+            </label>
+            <p class="warning" id="warning"></p>
+            <!--提交按钮-->
+            <a class="button-bottom">
+                <button type="submit" class="submit" id="submit">提交</button>
+            </a>
+            <!--提交按钮END-->
+        </div>
+    </div>
+    <div th:if="${phone eq ''}">
+        <div class="publish-success-box">
+            <p>您暂未绑定手机号！</p>
+            <p><a th:href="@{/user/bindphone}" href="bindphone.html">===前去绑定===</a></p>
+        </div>
+    </div>
     <!--找回密码表单END-->
 </div>
 </body>

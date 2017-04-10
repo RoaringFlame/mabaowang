@@ -1,6 +1,5 @@
 package com.mabao.util.express;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 
@@ -60,7 +59,6 @@ public class PackQuery implements ExpressQuery{
         ObjectMapper mapper = new ObjectMapper();
         String json = order(company, orderNo);
         if (json != null) {
-            mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
             PackInfo packInfo = mapper.readValue(json, PackInfo.class);
             if (packInfo != null) {
                 return packInfo;

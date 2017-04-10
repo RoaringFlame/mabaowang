@@ -11,8 +11,8 @@ import java.util.List;
  */
 public enum OrderStatus {
     ToBePaid("等待付款"),
-    ToBeSend("等待出库"),
-    ToBeReceipt("已出库"),
+    ToBeSend("等待发货"),
+    ToBeReceipt("已发货"),
     Completed("交易完成"),
     Canceled("已取消") ;
 

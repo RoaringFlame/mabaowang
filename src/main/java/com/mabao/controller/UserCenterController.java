@@ -145,23 +145,6 @@ public class UserCenterController {
     }
 
     /**
-     * 查询某宝宝信息
-     * @param babyId                宝宝ID
-     * @param model                 宝宝对象
-     * @return 编辑宝宝信息页
-     */
-    /*@RequestMapping(value = "baby/showBabyInfo",method = GET)
-    public String showBabyInfo(@RequestParam Long babyId,Model model){
-        Baby baby =  this.babyService.get(babyId);
-        if (baby != null){
-            model.addAttribute("baby",baby);
-            return "redirect:baby/changemsg";
-        }else {
-            return "baby_show_failure";
-        }
-    }*/
-
-    /**
      * 查看某用户宝宝信息
      *
      * @param model 宝宝
@@ -173,9 +156,12 @@ public class UserCenterController {
         if (user != null) {
             Baby baby = this.babyService.findBabyByUserId(user.getId());
             if (baby != null) {
-                model.addAttribute("baby", baby);
+                BabyVO babyVO = BabyVO.generateBy(baby);
+                model.addAttribute("babyVO", babyVO);
                 return "changemsg";
             } else {
+                BabyVO babyVO = new BabyVO();
+                model.addAttribute("babyVO", babyVO);
                 return "permsg";
             }
         } else {
@@ -194,28 +180,23 @@ public class UserCenterController {
     public String addBabyInfo(BabyVO babyInfo, Model model) {
         Baby baby = this.babyService.addBaby(babyInfo);
         if (baby != null) {
-            return "redirect:/user";     //转向个人中心
+            BabyVO babyVO = BabyVO.generateBy(baby);
+            model.addAttribute("babyVO", babyVO);
+            return "changemsg";     //转向个人中心
         } else {
-            return "baby_add_failure";
+            return "redirect:/user";
         }
     }
 
     /**
      * 编辑宝宝信息
      *
-     * @param babyInfo 宝宝对象
      * @return 宝宝列表接口
      */
     @RequestMapping(value = "baby/updateBabyInfo", method = POST)
-    public String updateBabyInfo(Baby babyInfo) {
-        User user = UserManager.getUser();
-        babyInfo.setUser(user);
-        Baby baby = this.babyService.updateBabyInfo(babyInfo);
-        if (baby != null) {
-            return "redirect:/user";     //转向个人中心
-        } else {
-            return "baby_update_failure";
-        }
+    public String updateBabyInfo(BabyVO babyVO) {
+        this.babyService.updateBabyInfo(babyVO);
+        return "redirect:/user";
     }
 
     /**
@@ -227,11 +208,11 @@ public class UserCenterController {
         assert tempUser != null;
         User user = userService.get(tempUser.getId());
         String phone = user.getPhone();
-        if(phone==null||"".equals(phone)){
-            model.addAttribute("phone","");
-        }else{
+        if (phone == null || "".equals(phone)) {
+            model.addAttribute("phone", "");
+        } else {
             phone = phone.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
-            model.addAttribute("phone",phone);
+            model.addAttribute("phone", phone);
         }
         model.addAttribute("phone", phone);
         return "message";
@@ -239,14 +220,15 @@ public class UserCenterController {
 
     /**
      * 进入修改密码页面要进行验证码回调判断
-     * @param code          验证码
+     *
+     * @param code 验证码
      */
     @RequestMapping(value = "/changePwd", method = GET)
     public String changePwd(String code, Model model) {
         JsonResultVO resultVO = userService.submitCode(3, code, "");
-        if(resultVO.getStatus()==JsonResultVO.SUCCESS) {
+        if (resultVO.getStatus() == JsonResultVO.SUCCESS) {
             return "changepwd";
-        }else{
+        } else {
             return "redirect:changePwd/sendMes";
         }
     }
@@ -254,17 +236,17 @@ public class UserCenterController {
     /**
      * 进入绑定手机页面
      */
-    @RequestMapping(value = "/bindphone",method = GET)
-    public String bindphone(Model model){
+    @RequestMapping(value = "/bindphone", method = GET)
+    public String bindphone(Model model) {
         User tempUser = UserManager.getUser();
         assert tempUser != null;
         User user = userService.get(tempUser.getId());
         String phone = user.getPhone();
-        if(phone==null||"".equals(phone)){
-            model.addAttribute("phone","");
-        }else{
+        if (phone == null || "".equals(phone)) {
+            model.addAttribute("phone", "");
+        } else {
             phone = phone.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
-            model.addAttribute("phone",phone);
+            model.addAttribute("phone", phone);
         }
         return "bindphone";
     }

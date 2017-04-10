@@ -3,19 +3,19 @@
 <head th:fragment="foot">
     <meta charset="utf-8"/>
     <div class="menu" id="menu">
-        <a href="index.html">
+        <a href="index.html" th:href="@{/}">
             <i class="icon-menu icon-menu1">
                 <img src="../static/images/footer-c1.png" alt="" th:src="@{/images/footer-c1.png}"/></i>
         </a>
-        <a>
+        <a href="developing.html" th:href="@{/developing}">
             <i class="icon-menu icon-menu2">
                 <img src="../static/images/footer-2.png" alt="" th:src="@{/images/footer-2.png}"/></i>
         </a>
-        <a href="consignment.html">
+        <a href="consignment.html" th:href="@{/consignment}">
             <i class="icon-menu icon-menu3">
                 <img src="../static/images/footer-3.png" alt="" th:src="@{/images/footer-3.png}"/></i>
         </a>
-        <a href="shopping.html" id="shopping">
+        <a href="shopping.html" id="shopping" th:href="@{/user/shopping}">
             <i class="icon-menu icon-menu4">
                 <img src="../static/images/footer-4.png" alt="" th:src="@{/images/footer-4.png}"/></i>
         </a>

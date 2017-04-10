@@ -1,26 +1,26 @@
 package com.mabao.util.express;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.mabao.util.CustomJsonDateDeserializer;
 
 import java.util.Date;
 
 public class PackDetails {
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date time;
 
     private String context;
 
     private String location;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date ftime;
 
     public Date getTime() {
         return time;
     }
 
+    @JsonDeserialize(using = CustomJsonDateDeserializer.class)
     public void setTime(Date time) {
         this.time = time;
     }
@@ -45,6 +45,7 @@ public class PackDetails {
         return ftime;
     }
 
+    @JsonDeserialize(using = CustomJsonDateDeserializer.class)
     public void setFtime(Date ftime) {
         this.ftime = ftime;
     }

@@ -23,7 +23,7 @@ public interface BabyService {
      * @param babyInfo              宝宝对象
      * @return                      宝宝对象
      */
-    Baby updateBabyInfo(Baby babyInfo);
+    Baby updateBabyInfo(BabyVO babyInfo);
 
     /**
      * 查看某用户宝宝信息

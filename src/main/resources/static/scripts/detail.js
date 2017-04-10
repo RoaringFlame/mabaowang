@@ -1,7 +1,3 @@
-/**
- * Created by Emma-pc on 2016/7/14.
- * 详情页面点击购物车登录的情况下提示加入购物车成功
- */
 "use strict";
 $(function () {
     //定义全局的商品id函数
@@ -16,13 +12,14 @@ $(function () {
     function addToCarts(){
         $("#textShow").hide();                                      //提示框的隐藏
         $("#addToCarts").click(function () {                       //点击添加到购物车按钮判断是否成功加入购物车
-            $.get("cart/cartAddGoods", {goodsId: goodsId}, function (data) {
+            $.get(MB.getContextPath()+"/cart/cartAddGoods", {goodsId: goodsId}, function (data) {
                 console.log(data);
                 console.log("详情页面弹框效果的实现");
                 if(data.status == "success"){
                     showMsg(data.message);
-                }else if(data.status == "failure"){
-                    window.location = "user";
+                }
+                else if(data.status == "failure"){
+                    window.location = MB.getContextPath()+"/user";
                 }
             });
         });
@@ -32,13 +29,13 @@ $(function () {
     function buyNow(){
         $("#textShow").hide();                          //提示框的隐藏
         $("#buyNow").click(function () {
-            $.get("cart/cartAddGoods", {goodsId: goodsId}, function (data) {
+            $.get(MB.getContextPath()+"/cart/cartAddGoods", {goodsId: goodsId}, function (data) {
                 console.log(data);
                 console.log("详情页面弹框效果的实现");
                 if (data.status == "success") {
                     window.location = MB.getContextPath()+"/cart/index";
                 } else {
-                    window.location = "user";
+                    window.location = MB.getContextPath()+"/user";
                 }
             });
         });
