@@ -92,8 +92,9 @@
         <input type="hidden" name="cartIds"/>
     </form>
     <!--底部导航-->
-    <div th:include="footer::foot"></div>
+    <div th:include="footer::foot(state=4)"></div>
     <!--底部导航 END-->
+    <div class="tip" id="textShow"></div>
 </div>
 </body>
 </html>

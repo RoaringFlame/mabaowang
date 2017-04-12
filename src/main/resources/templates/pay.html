@@ -62,11 +62,11 @@
         </div>
         <!-- 收货地址 END-->
         <!-- 购买订单 -->
-        <input name="cartIds" type="hidden" th:value="${cartIds}">
+        <input name="cartIds" type="hidden" th:value="${cartIds}"/>
         <div th:each="goods:${checkedGoodsList}">
             <div class="order-box">
                 <div class="goodsId" style="display: none" th:text="${goods.goodsId}">${goods.goodsId}</div>
-                <img src="../static/images/main-new1.png" th:src="@{'/upload/'+ ${goodsDetail.picture}}" alt="宝物"/>
+                <img src="../static/images/main-new1.png" th:src="@{'/upload/'+ ${goods.picture}}" alt="宝物"/>
                 <div class="order-box-right">
                     <p th:text="${goods.brandName} + '   ' +${goods.title}">H-M CARDIGAN</p>
                     <p th:text="'尺寸：'+${goods.size}">尺寸：S</p>
