@@ -59,7 +59,10 @@
     <div th:if="${phone eq ''}">
         <div class="publish-success-box">
             <p>您暂未绑定手机号！</p>
-            <p><a th:href="@{/user/bindphone}" href="bindphone.html">===前去绑定===</a></p>
+            <p><a class="button-bottom" th:href="@{/user/bindphone}" href="bindphone.html">
+                <button type="submit" class="submit" id="submit">前去绑定</button>
+            </a>
+            </p>
         </div>
     </div>
     <!--找回密码表单END-->

@@ -81,7 +81,7 @@ function sendCode(obj) {
     if (result) {
         var phoneNum = $("#telNum").val();
         //将手机利用ajax提交到后台的发短信接口
-        doPostBack('person/sendMes', sendBack, {"state": 1, "phoneNum": phoneNum});
+        doPostBack(MB.getContextPath()+'/person/sendMes', sendBack, {"state": 1, "phoneNum": phoneNum});
         addCookie("secondsremained", count, count); //添加cookie记录,测试为5秒
         addCookie("phoneNum", phoneNum, count);
         settime(obj);//开始倒计时
@@ -119,7 +119,7 @@ function submitCode() {
     if (countdown > 0) {
         if ($("#code").val() != "") {
             var code = $("#code").val();
-            doPostBack('person/submitCode', submitBack, {"state": 1, "code": code});
+            doPostBack(MB.getContextPath()+'/person/submitCode', submitBack, {"state": 1, "code": code});
         }
         else {
             $('#warning').text('请输入验证码！');
@@ -141,7 +141,7 @@ function sendBack(data) {
 function submitBack(data) {
     $('#warning').text(data.message);
     if (data.status == "success") {
-        window.location = "user/bindphone"
+        window.location = MB.getContextPath()+"/user/bindphone"
     }
 }
 
