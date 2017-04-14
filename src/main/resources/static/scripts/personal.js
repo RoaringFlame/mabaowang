@@ -18,9 +18,8 @@ $(function () {
             var objUrl = getObjectURL(this.files[0]);
             if (objUrl) {
 //						$("#imgUpload").attr("src", objUrl);
-                var path = MB.getRootPath();
+                var path = MB.getContextPath();
                 path += "/" + "person/headerPic";
-                var filename = $("#fileUpload").val();
                 var formData = new FormData();
                 formData.append('headerPic', $('#fileUpload')[0].files[0]);
                 $.ajax({
@@ -31,9 +30,9 @@ $(function () {
                     processData: false,
                     contentType: false
                 }).done(function (res) {
-                    window.location = "user";
+                    window.location = MB.getContextPath()+"/user";
                 }).fail(function (res) {
-                    window.location = "user";
+                    window.location = MB.getContextPath()+"/user";
                 });
             }
         });

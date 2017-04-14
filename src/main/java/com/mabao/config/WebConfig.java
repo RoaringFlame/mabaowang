@@ -1,20 +1,11 @@
 package com.mabao.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
-
-    @Bean
-    public CommonsMultipartResolver multipartResolver(){
-        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
-        commonsMultipartResolver.setMaxUploadSize(5048576);
-        return commonsMultipartResolver;
-    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -37,5 +28,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/user/unpublished_order").setViewName("unpublished_order");
         registry.addViewController("/user/bind_phone").setViewName("bind_phone");
         registry.addViewController("/user/consignment_success").setViewName("consignment_success");
+        registry.addViewController("/test").setViewName("test");
     }
 }
