@@ -4,6 +4,7 @@ import com.mabao.controller.vo.ExpressVO;
 import com.mabao.controller.vo.JsonResultVO;
 import com.mabao.dao.domain.*;
 import com.mabao.dao.enums.OrderStatus;
+import com.mabao.dao.repositories.CartRepository;
 import com.mabao.dao.repositories.GoodsRepository;
 import com.mabao.dao.repositories.OrderDetailRepository;
 import com.mabao.dao.repositories.OrderRepository;
@@ -203,6 +204,7 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 查询物流信息
+     *
      * @param orderId 订单id
      */
     @Override
@@ -218,5 +220,19 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean paySuccess(Long orderId) {
+        Boolean flag = false;
+        Order order = this.orderRepository.getOne(orderId);
+        order.setState(OrderStatus.ToBeSend);
+        order.setPaymentNo("123456789");
+        Date date = new Date();
+        order.setPayTime(date);
+        if (this.orderRepository.saveAndFlush(order) != null) {
+            flag = true;
+        }
+        return flag;
     }
 }

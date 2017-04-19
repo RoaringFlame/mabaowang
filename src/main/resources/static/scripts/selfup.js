@@ -1,6 +1,6 @@
 "use strict";
 $(function () {
-
+    var flag = false;
         $(function () {
             var curr = new Date().getFullYear();
             var opt = {};
@@ -57,6 +57,7 @@ $(function () {
                 console.log("objUrl = " + objUrl);
                 if (objUrl) {
                     $("#imgUpload").parent().append($("<img>").attr("src", objUrl));
+                    flag = true;
                 }
             });
             $("#imgUpload").click(function () {
@@ -72,18 +73,24 @@ $(function () {
 
         //数据校验
         function checkInput() {
+            var goodsTitle=$("#goodsTitle").val();
             var oldPrice = $("#oldPrice").val();
             var newPrice = $("#newPrice").val();
             var upTime = $("#test_default").val();
             var z = /^[0-9]*$/;
-            if (z.test(oldPrice) && z.test(newPrice)) {
-                if (upTime !== null && (upTime !== "")) {
-                    $(".transfer-form").submit();
+            if((goodsTitle !== null) && (goodsTitle !== "")&&(oldPrice !== null) && (oldPrice !== "")
+                &&(newPrice !== null) && (newPrice !== "")&&(upTime !== null) && (upTime !== "")){
+                if (z.test(oldPrice) && z.test(newPrice)) {
+                    if (flag) {
+                        $(".transfer-form").submit();
+                    } else {
+                        showMsg("请上传图片");
+                    }
                 } else {
-                    showMsg("时间栏不能为空");
+                    showMsg("价格栏必须是数字");
                 }
-            } else {
-                showMsg("价格栏必须是数字");
+            }else {
+                showMsg("请完善宝物信息");
             }
         }
 

@@ -78,4 +78,6 @@ public interface OrderService {
      * @return                          物流信息
      */
     ExpressVO findPackInfoByOrder(Long orderId) throws IOException;
+
+    boolean paySuccess(Long orderId);
 }

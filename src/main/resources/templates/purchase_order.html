@@ -61,7 +61,9 @@
                 <div th:if="${order.flag eq 0}">
                     <div class="order-button">
                         <!--<button type="submit" value="确认收货">取消订单</button>-->
-                        <button type="submit" value="确认收货">付款</button>
+                        <a href="pay_order.html" th:href="@{/payOrder(orderId=${order.id})}">
+                            <button type="submit" value="付款">付款</button>
+                        </a>
                     </div>
                 </div>
                 <!-- 按钮 -->

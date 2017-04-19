@@ -101,7 +101,7 @@ public class SellController {
         if (result != null){
             return "publish_success";
         }else {
-            return "publish_failure";
+            return "error";
         }
     }
 
@@ -123,7 +123,7 @@ public class SellController {
             for(GoodsVO goodsVo:list){
                 if("已售罄".equals(goodsVo.getState())) {
                     List<OrderDetail> orderDetailList = this.orderService.findOrderDetail(goodsVo.getId());
-                    if(orderDetailList!=null){
+                    if(orderDetailList!=null&&(orderDetailList.size()!=0)){
                         OrderStatus orderStatus = orderDetailList.get(0).getOrder().getState();
                         if(orderStatus!=OrderStatus.Completed){
                             goodsVo.setState("交易中");

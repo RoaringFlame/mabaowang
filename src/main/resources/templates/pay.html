@@ -41,7 +41,7 @@
     <!-- 收货地址 -->
     <button class="add-jump-arrow"></button>
 
-    <form id="pay" action="order/payConfirm">
+    <form id="pay" action="order/payConfirm" th:action="@{/order/payConfirm}">
         <div class="box add">
             <div class="box-left">
                 <img src="../static/images/pay-1.png" th:src="@{/images/pay-1.png}" alt=""/>

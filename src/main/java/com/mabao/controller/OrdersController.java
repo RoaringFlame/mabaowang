@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,20 +39,28 @@ public class OrdersController {
      * @param cartIds                   购物车IDs
      * @param addressId                 收货地址
      * @param message                   留言
-     * @param model                     订单
      * @return                          支付
      */
     @RequestMapping(value = "/payConfirm",method = GET)
     public String orderConfirm(@RequestParam String cartIds,
                                @RequestParam Long addressId,
-                               @RequestParam(required = false) String message,
-                               Model model){
+                               @RequestParam(required = false) String message, RedirectAttributes attr){
         //生成订单
         Order order = this.orderService.addOrder(cartIds,addressId,message);
         //删除购物车
         this.cartService.deleteCartGoodsList(cartIds);
-        //支付
-        return "redirect:../user";
+        //跳转到支付页面
+        attr.addAttribute("orderId", order.getId());
+        return  "redirect:/payOrder";
+    }
+
+    @RequestMapping(value = "/paySuccess/{orderId}",method = GET)
+    public String orderPay(@PathVariable("orderId") Long orderId,RedirectAttributes attr){
+        this.orderService.paySuccess(orderId);
+        attr.addAttribute("state",2);
+        attr.addAttribute("page",0);
+        attr.addAttribute("pageSize",100);
+        return  "redirect:/order/search";
     }
 
     /**

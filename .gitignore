@@ -7,3 +7,5 @@ gradle/
 /src/main/resources/c3p0.properties
 /src/main/resources/rebel.xml
 .gradle
+/src/main/webapp/upload/header/user/15/
+/src/main/webapp/upload/

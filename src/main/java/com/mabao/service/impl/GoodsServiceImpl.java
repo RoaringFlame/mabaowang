@@ -49,22 +49,24 @@ public class GoodsServiceImpl extends BaseAction implements GoodsService {
      * 首页商品模糊搜索
      */
     @Override
-    public Page<Goods> goodsSearch(Long goodsTypeId,String title, int page, int pageSize) {
-        if (goodsTypeId == null && (title == null || "".equals(title))){
-            return this.goodsRepository.findByStateOrderByUpTimeDesc(Boolean.TRUE,new PageRequest(page, pageSize));
-        }if (goodsTypeId != null && title != null && !"".equals(title)){
-            title = "%"+title+"%";
-            return this.goodsRepository.findByTitleLikeAndTypeIdAndState(title,goodsTypeId,Boolean.TRUE,new PageRequest(page, pageSize));
-        }else if (title == null || "".equals(title)){
-            return this.goodsRepository.findByTypeIdAndState(goodsTypeId,Boolean.TRUE,new PageRequest(page, pageSize));
-        }else if (goodsTypeId == null){
-            title = "%"+title+"%";
-            return this.goodsRepository.findByTitleLikeAndState(title,Boolean.TRUE,new PageRequest(page, pageSize));
-        }else {
+    public Page<Goods> goodsSearch(Long goodsTypeId, String title, int page, int pageSize) {
+        if (goodsTypeId == null && (title == null || "".equals(title))) {
+            return this.goodsRepository.findByStateOrderByUpTimeDesc(Boolean.TRUE, new PageRequest(page, pageSize));
+        }
+        if (goodsTypeId != null && title != null && !"".equals(title)) {
+            title = "%" + title + "%";
+            return this.goodsRepository.findByTitleLikeAndTypeIdAndState(title, goodsTypeId, Boolean.TRUE, new PageRequest(page, pageSize));
+        } else if (title == null || "".equals(title)) {
+            return this.goodsRepository.findByTypeIdAndState(goodsTypeId, Boolean.TRUE, new PageRequest(page, pageSize));
+        } else if (goodsTypeId == null) {
+            title = "%" + title + "%";
+            return this.goodsRepository.findByTitleLikeAndState(title, Boolean.TRUE, new PageRequest(page, pageSize));
+        } else {
             return null;
         }
 
     }
+
     /**
      * 查询商品信息
      */
@@ -75,27 +77,32 @@ public class GoodsServiceImpl extends BaseAction implements GoodsService {
 
     /**
      * （首页猜你喜欢）
-     * @param page              页码
-     * @param pageSize          一页大小
-     * @return                  商品集合，分页
+     *
+     * @param page     页码
+     * @param pageSize 一页大小
+     * @return 商品集合，分页
      */
     @Override
     public Page<Goods> goodsListGuess(Baby baby, int page, int pageSize) {
-        return this.goodsRepository.findByStateOrderByUpTimeDesc(Boolean.TRUE,new PageRequest(page, pageSize));
+        return this.goodsRepository.findByStateOrderByUpTimeDesc(Boolean.TRUE, new PageRequest(page, pageSize));
     }
+
     /**
      * 保存商品
-     * @param newGoods        商品对象，需包含用户ID
-     * @return                保存的商品对象
+     *
+     * @param newGoods 商品对象，需包含用户ID
+     * @return 保存的商品对象
      */
     @Override
     public Goods saveOne(Goods newGoods) {
         return this.goodsRepository.save(newGoods);
     }
+
     /**
      * 根据商品ID查商品list
-     * @param goodsIdList           商品ID集合
-     * @return                      商品list
+     *
+     * @param goodsIdList 商品ID集合
+     * @return 商品list
      */
     @Override
     public List<Goods> findGoodsByIdIn(List<Long> goodsIdList) {
@@ -106,14 +113,15 @@ public class GoodsServiceImpl extends BaseAction implements GoodsService {
     /**
      * 自助发布宝物
      * 添加商品
-     * @param goodsVO             商品对象
+     *
+     * @param goodsVO  商品对象
      * @param goodsPic
      * @param request
-     * @return                  寄售成功页
+     * @return 寄售成功页
      */
     @Override
-    public Goods releaseGoods(GoodsDetailVO goodsVO, MultipartFile[] goodsPic, HttpServletRequest request) throws Exception  {
-       try {
+    public Goods releaseGoods(GoodsDetailVO goodsVO, MultipartFile[] goodsPic, HttpServletRequest request) throws Exception {
+        try {
             User user = UserManager.getUser();
             assert user != null;
             //保存宝物
@@ -132,29 +140,41 @@ public class GoodsServiceImpl extends BaseAction implements GoodsService {
             goods.setUpTime(goodsVO.getUpTime());
             goods.setNewDegree(Quality.valueOf(goodsVO.getNewDegree()));
             goods.setSize(this.goodsSizeService.get(Long.valueOf(goodsVO.getSize())));
-            goods.setPack(goodsVO.getPack());
-            goods.setReceipt(goodsVO.getReceipt());
+            if (goodsVO.getPack() != null) {
+                goods.setPack(goodsVO.getPack());
+            } else {
+                goods.setPack(false);
+            }
+            if (goodsVO.getReceipt() != null) {
+                goods.setReceipt(goodsVO.getReceipt());
+            } else {
+                goods.setReceipt(false);
+            }
+
+//            goods.setPack(goodsVO.getPack());
+//            goods.setReceipt(goodsVO.getReceipt());
+
             goods.setMessage(goodsVO.getMessage());
             goods.setState(true);
             goods.setSellEnd(false);
             goods.setStockNumber(1);
-           //保存文件
-           if (goodsPic !=null){
-               String picURL = "/upload/"+user.getId()+"/";
-               //上传文件过程
-               super.uploads(goodsPic, picURL, request);
-               String [] nameArray = super.getFileNames();
-               StringBuilder pictureList = new StringBuilder();
-               for (int i=0; i < nameArray.length;i++){
-                   String name = nameArray[i].substring(nameArray[i].indexOf(picURL)+picURL.length(),nameArray[i].length());
-                   pictureList.append(user.getId()).append("/").append(name);
-                   if (i < (nameArray.length-1)){
-                       pictureList.append(",");
-                   }
-               }
-               goods.setPicture(user.getId()+"/"+nameArray[0].substring(nameArray[0].indexOf(picURL)+picURL.length(),nameArray[0].length()));
-               goods.setPictureList(pictureList.toString());
-           }
+            //保存文件
+            if (goodsPic != null) {
+                String picURL = "/upload/" + user.getId() + "/";
+                //上传文件过程
+                super.uploads(goodsPic, picURL, request);
+                String[] nameArray = super.getFileNames();
+                StringBuilder pictureList = new StringBuilder();
+                for (int i = 0; i < nameArray.length; i++) {
+                    String name = nameArray[i].substring(nameArray[i].indexOf(picURL) + picURL.length(), nameArray[i].length());
+                    pictureList.append(user.getId()).append("/").append(name);
+                    if (i < (nameArray.length - 1)) {
+                        pictureList.append(",");
+                    }
+                }
+                goods.setPicture(user.getId() + "/" + nameArray[0].substring(nameArray[0].indexOf(picURL) + picURL.length(), nameArray[0].length()));
+                goods.setPictureList(pictureList.toString());
+            }
             Goods saveGoods = this.goodsRepository.save(goods);
             //生成订单
 //            Order order = new Order();
@@ -181,36 +201,37 @@ public class GoodsServiceImpl extends BaseAction implements GoodsService {
 //            od.setBrand(saveGoods.getBrand().getBrandName());
 //            this.orderService.saveOrderDetail(od);
             return saveGoods;
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
 
     /**
      * 查询卖家商品
-     * @param goodsState               商品状态：1已发布，2待发布，3已出售，4所有
-     * @param page                     页码
-     * @param pageSize                 大小
-     * @return                         页面内容
+     *
+     * @param goodsState 商品状态：1已发布，2待发布，3已出售，4所有
+     * @param page       页码
+     * @param pageSize   大小
+     * @return 页面内容
      */
     @Override
-    public Page<Goods> findSellerGoods(Integer goodsState,int page, int pageSize) {
+    public Page<Goods> findSellerGoods(Integer goodsState, int page, int pageSize) {
         User user = UserManager.getUser();
-        if(user != null){
-            if(1 == goodsState){
+        if (user != null) {
+            if (1 == goodsState) {
                 return this.goodsRepository.findByUserIdAndStateAndSellEndOrderByUpTimeDesc
-                        (user.getId(),Boolean.TRUE,Boolean.FALSE,new PageRequest(page, pageSize));
-            }else if(2 == goodsState){
+                        (user.getId(), Boolean.TRUE, Boolean.FALSE, new PageRequest(page, pageSize));
+            } else if (2 == goodsState) {
                 return this.goodsRepository.findByUserIdAndStateAndSellEndOrderByUpTimeDesc
-                        (user.getId(),Boolean.FALSE,Boolean.FALSE,new PageRequest(page, pageSize));
-            }else if(3 == goodsState){
+                        (user.getId(), Boolean.FALSE, Boolean.FALSE, new PageRequest(page, pageSize));
+            } else if (3 == goodsState) {
                 return this.goodsRepository.findByUserIdAndStateAndSellEndOrderByUpTimeDesc
-                        (user.getId(),Boolean.FALSE,Boolean.TRUE,new PageRequest(page, pageSize));
-            }else{
+                        (user.getId(), Boolean.FALSE, Boolean.TRUE, new PageRequest(page, pageSize));
+            } else {
                 return this.goodsRepository.findByUserIdOrderByUpTimeDesc
-                        (user.getId(),new PageRequest(page, pageSize));
+                        (user.getId(), new PageRequest(page, pageSize));
             }
-        }else {
+        } else {
             throw new NullPointerException();
         }
     }
@@ -218,6 +239,7 @@ public class GoodsServiceImpl extends BaseAction implements GoodsService {
 
     /**
      * 为文件重新命名，命名规则为当前系统时间毫秒数
+     *
      * @return string
      */
     private String getFileNameNew() {

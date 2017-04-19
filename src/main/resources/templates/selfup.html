@@ -80,7 +80,7 @@
         <form class="transfer-form" action="sell/release" enctype="multipart/form-data" id="console-form" method="post"
               th:action="@{/sell/release}" th:method="post">
             <label class="title">
-                <input type="text" name="title" value="宝物标题"/>
+                <input id="goodsTitle" type="text" name="title" placeholder="输入标题"/>
             </label>
             <!--宝物信息选框-->
             <ul class="transfer-info" id="transferInfo">
