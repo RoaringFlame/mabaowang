@@ -82,4 +82,6 @@ public interface OrderService {
     boolean paySuccess(Long orderId);
 
     boolean orderExpress(Long orderId, Long expressNum);
+
+    boolean confirmExpress(Long orderId);
 }

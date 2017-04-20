@@ -117,4 +117,14 @@ public class OrdersController {
         model.addAttribute("expressVO",expressVO);
         return "transport";
     }
+
+    @RequestMapping(value = "/confirmExpress/{orderId}",method = GET)
+    public String orderExpress(@PathVariable("orderId") Long orderId,
+                               RedirectAttributes attr){
+        this.orderService.confirmExpress(orderId);
+        attr.addAttribute("state",3);
+        attr.addAttribute("page",0);
+        attr.addAttribute("pageSize",100);
+        return  "redirect:/order/search";
+    }
 }

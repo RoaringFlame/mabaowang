@@ -250,4 +250,17 @@ public class OrderServiceImpl implements OrderService {
         }
         return flag;
     }
+
+    @Override
+    public boolean confirmExpress(Long orderId) {
+        Boolean flag = false;
+        Order order = this.orderRepository.getOne(orderId);
+        Date date = new Date();
+        order.setDealTime(date);
+        order.setState(OrderStatus.Completed);
+        if (this.orderRepository.saveAndFlush(order) != null) {
+            flag = true;
+        }
+        return flag;
+    }
 }
