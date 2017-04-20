@@ -21,40 +21,40 @@ public class AddressServiceImpl implements AddressService {
 
     /**
      * 查默认收货地址
-     * @param userId          用户ID
-     * @return                地址对象
+     *
+     * @param userId 用户ID
+     * @return 地址对象
      */
     @Override
     public Address getDefaultAddress(Long userId) {
-        return this.addressRepository.findByUserIdAndState(userId,true);
+        return this.addressRepository.findByUserIdAndState(userId, true);
     }
 
     /**
      * 显示当前用户的所有收货地址
-     * @return                  地址list
+     *
+     * @return 地址list
      */
-    public List<Address> findUserAllAddress(Long userId){
+    public List<Address> findUserAllAddress(Long userId) {
         return this.addressRepository.findByUserId(userId);
     }
+
     /**
      * 新增收货地址
-     * @param address           地址对象
-     * @return                  新增地址对象
+     *
+     * @param address 地址对象
+     * @return 新增地址对象
      */
-    public Address addAddress(AddressVO address){
+    public Address addAddress(AddressVO address) {
         Address newAddress = new Address();
         User user = UserManager.getUser();
         assert user != null;
-        if (address.isState()){     //修改默认地址
-            Address defaultAddress = this.addressRepository.findByUserIdAndState(user.getId(),Boolean.TRUE);
-            if (defaultAddress !=null){
-                defaultAddress.setState(false);
-                this.addressRepository.save(defaultAddress);
-            }
-            newAddress.setState(true);//设为默认地址
-        }else {
-            newAddress.setState(false);
+        Address defaultAddress = this.addressRepository.findByUserIdAndState(user.getId(), Boolean.TRUE);
+        if (defaultAddress != null) {
+            defaultAddress.setState(false);
+            this.addressRepository.save(defaultAddress);
         }
+        newAddress.setState(true);//设为默认地址
         newAddress.setUser(user);
         newAddress.setRecipients(address.getRecipients());
         newAddress.setLocation(address.getLocation());
@@ -65,15 +65,16 @@ public class AddressServiceImpl implements AddressService {
 
     /**
      * 更改选中收货地址
-     * @param address           地址对象
-     * @return                  修改的地址对象
+     *
+     * @param address 地址对象
+     * @return 修改的地址对象
      */
-    public Address updateAddress(Address address){
+    public Address updateAddress(Address address) {
         User user = UserManager.getUser();
         assert user != null;
-        if (address.isState()){     //修改默认地址
+        if (address.isState()) {     //修改默认地址
             Address defaultAddress = this.getDefaultAddress(user.getId());
-            if (defaultAddress !=null){
+            if (defaultAddress != null) {
                 defaultAddress.setState(false);
                 this.addressRepository.save(defaultAddress);
             }
@@ -83,15 +84,18 @@ public class AddressServiceImpl implements AddressService {
 
     /**
      * 删除收货地址
-     * @param addressId         地址ID
+     *
+     * @param addressId 地址ID
      */
-    public void deleteAddress(Long addressId){
+    public void deleteAddress(Long addressId) {
         this.addressRepository.delete(addressId);
     }
+
     /**
      * 依据ID获取地址
-     * @param addressId         地址id
-     * @return                  地址对象
+     *
+     * @param addressId 地址id
+     * @return 地址对象
      */
     @Override
     public Address get(Long addressId) {
@@ -100,19 +104,20 @@ public class AddressServiceImpl implements AddressService {
 
     /**
      * 修改收货地址默认状态
-     * @param addressId           地址对象
-     * @return                  用户地址页
+     *
+     * @param addressId 地址对象
+     * @return 用户地址页
      */
     @Override
     public Address updateAddressStatus(Long addressId) {
-        User user =UserManager.getUser();
+        User user = UserManager.getUser();
         assert user != null;
-        Address defaultAddress =this.getDefaultAddress(user.getId());
-        if (defaultAddress != null){
+        Address defaultAddress = this.getDefaultAddress(user.getId());
+        if (defaultAddress != null) {
             defaultAddress.setState(false);
             this.addressRepository.saveAndFlush(defaultAddress);
         }
-        Address address =this.addressRepository.findOne(addressId);
+        Address address = this.addressRepository.findOne(addressId);
         address.setState(true);
         return this.addressRepository.saveAndFlush(address);
     }

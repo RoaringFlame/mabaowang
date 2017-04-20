@@ -45,7 +45,15 @@ $(function () {
                 showMsg("请先添加收货地址！");
             }
         });
-    }
 
+        $("#payButton").click(function () {
+            var addressId = $("#addressId");
+            if (addressId !== "") {
+                $("#payButton").submit();
+            } else {
+                showMsg("请先添加收货地址！");
+            }
+        });
+    }
     init();
 });

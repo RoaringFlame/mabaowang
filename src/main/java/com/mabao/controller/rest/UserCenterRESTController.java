@@ -80,7 +80,7 @@ public class UserCenterRESTController {
      */
     @RequestMapping(value = "/sendMes", method = RequestMethod.POST)
     public JsonResultVO sendMessage(@RequestParam Integer state,
-                                    @RequestParam( required = false) String phoneNum)
+                                    @RequestParam(required = false) String phoneNum)
             throws IOException {
         return userService.sendMessage(state, phoneNum);
     }

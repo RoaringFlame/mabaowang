@@ -13,7 +13,7 @@ $(function () {
     //获取商品信息
     function getGoods() {
         $("#textShow").hide();                          //提示框的隐藏
-        MB.sendAjax("get","cart/showCart", {}, function (data) {
+        MB.sendAjax("get", "cart/showCart", {}, function (data) {
             $(data).each(function (index, goods) {
                 var newGoods = $("#goodsContainer").find("div.main-item").clone();                       //克隆goodsContainer中商品信息
                 newGoods.find("div.cartId").text(goods.id);                                              //从后台获取cartId
@@ -40,25 +40,25 @@ $(function () {
                 var num = parseInt($(this).prev("p").text());                         //获取当前商品数量
                 var flag = false;
                 $.ajax({
-                    url : MB.getContextPath()+'/cart/changeNum/' + cartId,
-                    type : 'get',
+                    url: MB.getContextPath() + '/cart/changeNum/' + cartId,
+                    type: 'get',
                     async: false,//使用同步的方式,true为异步方式
-                    data : {opt: 1},//这里使用json对象
-                    success : function(data){
-                        if(data.status == "success"){
+                    data: {opt: 1},//这里使用json对象
+                    success: function (data) {
+                        if (data.status == "success") {
                             flag = true;
-                        }else{
+                        } else {
                             showMsg(data.message);
                         }
                     },
-                    fail:function(){
+                    fail: function () {
                     }
                 });
-                if(flag){
+                if (flag) {
                     $(this).prev("p").text(num + 1);     //显示数量+1
                     setTotal();                          //点击增加按钮后重新计算总价
                     flag = false;
-            }
+                }
             });
             //减少按钮
             main.find(".shopping-cart-reduce").click(function () {
@@ -67,21 +67,21 @@ $(function () {
                 var flag = false;
 
                 $.ajax({
-                    url : MB.getContextPath()+'/cart/changeNum/' + cartId,
-                    type : 'get',
+                    url: MB.getContextPath() + '/cart/changeNum/' + cartId,
+                    type: 'get',
                     async: false,//使用同步的方式,true为异步方式
-                    data : {opt: 2},//这里使用json对象
-                    success : function(data){
-                        if(data.status == "success"){
+                    data: {opt: 2},//这里使用json对象
+                    success: function (data) {
+                        if (data.status == "success") {
                             flag = true;
-                        }else{
+                        } else {
                             showMsg(data.message);
                         }
                     },
-                    fail:function(){
+                    fail: function () {
                     }
                 });
-                if(flag){
+                if (flag) {
                     $(this).next("p").text(num <= 1 ? 1 : num - 1);               //如果商品数量为1则商品数量不变，否则商品数量减1
                     setTotal();                                                   //点击增加按钮后重新计算总价
                     flag = false;
@@ -109,12 +109,12 @@ $(function () {
             //点击图片进入商品详情
             main.find(".main-item").find("img").click(function () {
                 var goodsId = $(this).prevAll(".goodsId").text();
-                window.location = MB.getContextPath()+"/goods/goodsDetail?goodsId=" + goodsId;
+                window.location = MB.getContextPath() + "/goods/goodsDetail?goodsId=" + goodsId;
             });
             //点击商品信息进入商品详情
             $(".goods-info").click(function () {
                 var goodsId = $(this).prevAll(".goodsId").text();
-                window.location = MB.getContextPath()+"/goods/goodsDetail?goodsId=" + goodsId;
+                window.location = MB.getContextPath() + "/goods/goodsDetail?goodsId=" + goodsId;
             });
             setTotal();                      //计算总价
             initEdit();                      //编辑按钮初始化
@@ -157,7 +157,14 @@ $(function () {
     function pay(cartIds) {
         cartIds = cartIds.substring(0, cartIds.length - 1);
         payForm.find("input[name='cartIds']").val(cartIds);                   //给表单中的input赋值字符串
-        payForm.submit();                                                    //提交表单
+        $.get(MB.getContextPath() + "/provinces", {}, function (data) {
+            if (data!=null) {
+
+                payForm.submit();                                                    //提交表单
+            }else{
+                showMsg("请先添加收货地址！")
+            }
+        }, "json");
     }
 
 

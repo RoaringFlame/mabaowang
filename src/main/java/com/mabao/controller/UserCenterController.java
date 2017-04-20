@@ -249,4 +249,19 @@ public class UserCenterController {
         }
         return "bindphone";
     }
+
+    @RequestMapping(value = "/consaleNew", method = GET)
+    public String conseleNew(Model model) {
+        User tempUser = UserManager.getUser();
+        assert tempUser != null;
+        User user = userService.get(tempUser.getId());
+        String phone = user.getPhone();
+        if (phone == null || "".equals(phone)) {
+            model.addAttribute("phone", "");
+        } else {
+            phone = phone.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+            model.addAttribute("phone", phone);
+        }
+        return "consale_new";
+    }
 }

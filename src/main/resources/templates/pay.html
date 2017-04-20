@@ -47,7 +47,7 @@
                 <img src="../static/images/pay-1.png" th:src="@{/images/pay-1.png}" alt=""/>
             </div>
             <div class="box-right">
-                <input name="addressId" style="display: none" th:value="${defaultAddress.id}"/>
+                <input id="addressId" name="addressId" style="display: none" th:value="${defaultAddress.id}"/>
                 <div class="box-right-top">
                     <dl>
                         <dd th:text="${defaultAddress.recipients}">陈恒</dd>
@@ -82,7 +82,8 @@
 
             <ul class="lists">
                 <li>
-                    <div th:text="'共计'+${goods.quantity}+'件商品'">共计2件商品</div>&nbsp;
+                    <div th:text="'共计'+${goods.quantity}+'件商品'">共计2件商品</div>
+                    &nbsp;
                     小计：<b th:text="'￥'+${#numbers.formatDecimal(goods.subtotal , 0, 'COMMA', 2, 'POINT')}">￥111</b>
                 </li>
             </ul>
@@ -101,10 +102,10 @@
         <ul>
             <li>总计&nbsp;:&nbsp;
                 <b th:text="'￥'+${#numbers.formatDecimal(totalSum , 0, 'COMMA', 2, 'POINT')}">￥121
-            </b>
+                </b>
             </li>
             <li>
-                <button class="pay" type="submit" form="pay">付款</button>
+                <button class="pay" id="payButton" type="button" form="pay">付款</button>
             </li>
         </ul>
     </div>
