@@ -157,14 +157,7 @@ $(function () {
     function pay(cartIds) {
         cartIds = cartIds.substring(0, cartIds.length - 1);
         payForm.find("input[name='cartIds']").val(cartIds);                   //给表单中的input赋值字符串
-        $.get(MB.getContextPath() + "/provinces", {}, function (data) {
-            if (data!=null) {
-
-                payForm.submit();                                                    //提交表单
-            }else{
-                showMsg("请先添加收货地址！")
-            }
-        }, "json");
+        payForm.submit();                                                    //提交表单
     }
 
 
