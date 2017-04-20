@@ -57,7 +57,7 @@ public class OrdersController {
     @RequestMapping(value = "/paySuccess/{orderId}",method = GET)
     public String orderPay(@PathVariable("orderId") Long orderId,RedirectAttributes attr){
         this.orderService.paySuccess(orderId);
-        attr.addAttribute("state",2);
+        attr.addAttribute("state",1);
         attr.addAttribute("page",0);
         attr.addAttribute("pageSize",100);
         return  "redirect:/order/search";
@@ -93,6 +93,17 @@ public class OrdersController {
         }else{
             return "purchase_order";
         }
+    }
+
+    @RequestMapping(value = "/expressSuccess/{orderId}/{expressNum}",method = GET)
+    public String orderExpress(@PathVariable("orderId") Long orderId,
+                               @PathVariable("expressNum") Long expressNum,
+                               RedirectAttributes attr){
+        this.orderService.orderExpress(orderId,expressNum);
+        attr.addAttribute("state",2);
+        attr.addAttribute("page",0);
+        attr.addAttribute("pageSize",100);
+        return  "redirect:/order/search";
     }
 
     /**

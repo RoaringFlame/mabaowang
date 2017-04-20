@@ -4,10 +4,7 @@ import com.mabao.controller.vo.ExpressVO;
 import com.mabao.controller.vo.JsonResultVO;
 import com.mabao.dao.domain.*;
 import com.mabao.dao.enums.OrderStatus;
-import com.mabao.dao.repositories.CartRepository;
-import com.mabao.dao.repositories.GoodsRepository;
-import com.mabao.dao.repositories.OrderDetailRepository;
-import com.mabao.dao.repositories.OrderRepository;
+import com.mabao.dao.repositories.*;
 import com.mabao.service.AddressService;
 import com.mabao.service.CartService;
 import com.mabao.service.OrderService;
@@ -31,6 +28,8 @@ public class OrderServiceImpl implements OrderService {
     private OrderDetailRepository orderDetailRepository;
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private ExpressRepository expressRepository;
     @Autowired
     private GoodsRepository goodsRepository;
     @Autowired
@@ -226,10 +225,26 @@ public class OrderServiceImpl implements OrderService {
     public boolean paySuccess(Long orderId) {
         Boolean flag = false;
         Order order = this.orderRepository.getOne(orderId);
-        order.setState(OrderStatus.ToBeSend);
         order.setPaymentNo("123456789");
         Date date = new Date();
         order.setPayTime(date);
+        order.setState(OrderStatus.ToBeSend);
+        if (this.orderRepository.saveAndFlush(order) != null) {
+            flag = true;
+        }
+        return flag;
+    }
+
+    @Override
+    public boolean orderExpress(Long orderId, Long experssNum) {
+        Boolean flag = false;
+        Order order = this.orderRepository.getOne(orderId);
+        Date date = new Date();
+        order.setPortTime(date);
+        Express express = this.expressRepository.getOne(experssNum);
+        order.setExpress(express);
+        order.setPortNumber("433360869508");
+        order.setState(OrderStatus.ToBeReceipt);
         if (this.orderRepository.saveAndFlush(order) != null) {
             flag = true;
         }

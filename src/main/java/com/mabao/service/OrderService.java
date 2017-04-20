@@ -80,4 +80,6 @@ public interface OrderService {
     ExpressVO findPackInfoByOrder(Long orderId) throws IOException;
 
     boolean paySuccess(Long orderId);
+
+    boolean orderExpress(Long orderId, Long expressNum);
 }
