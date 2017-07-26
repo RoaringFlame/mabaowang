@@ -28,7 +28,7 @@ $(function () {
                     if (data.status == "success") {
                         //跳转到登录页面
                         $('.warning').text("");
-                        window.location.href = "login";
+                        window.location.href = MB.getContextPath()+"/login";
                     }
                     else if (data.status == "failure") {
                         $('.warning').text(data.message);
